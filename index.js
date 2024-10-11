@@ -100,10 +100,24 @@ app.post('/send-message', async (req, res) => {
             return res.status(400).send('Embed title and description are required');
         }
 
+        // Membuat embed message
         const embedMessage = new EmbedBuilder()
             .setTitle(embed.title)
             .setDescription(embed.description)
             .setColor(embed.color || '#000000');
+
+        // Menambahkan optional fields ke embed
+        if (embed.image && embed.image.url) {
+            embedMessage.setImage(embed.image.url);
+        }
+
+        if (embed.footer && embed.footer.text) {
+            embedMessage.setFooter({ text: embed.footer.text });
+        }
+
+        if (embed.thumbnail && embed.thumbnail.url) {
+            embedMessage.setThumbnail(embed.thumbnail.url);
+        }
 
         await channel.send({ embeds: [embedMessage] });
         res.status(200).send('Message sent successfully');
