@@ -104,7 +104,10 @@ app.post('/send-message', async (req, res) => {
         }
 
         // Memastikan semua properti yang ada dalam embed valid
-        const embedMessage = new EmbedBuilder(embed);
+        const embedMessage = new EmbedBuilder()
+            .setTitle(embed.title)
+            .setDescription(embed.description)
+            .setColor(embed.color); // Memastikan warna ada dalam embed
 
         // Mengirim pesan dengan embed
         await channel.send({ embeds: [embedMessage] });
