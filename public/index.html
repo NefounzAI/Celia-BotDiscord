@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirim Pesan ke Discord</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 p-6">
+    <h1 class="text-3xl font-bold mb-4">Kirim Pesan ke Discord</h1>
+    <form id="messageForm" class="bg-white p-6 rounded-lg shadow-md">
+        <input type="text" id="guildId" placeholder="Guild ID" required class="border border-gray-300 p-2 rounded w-full mb-4">
+        <input type="text" id="channelId" placeholder="Channel ID" required class="border border-gray-300 p-2 rounded w-full mb-4">
+        <input type="text" id="embedTitle" placeholder="Embed Title" required class="border border-gray-300 p-2 rounded w-full mb-4">
+        <textarea id="embedDescription" placeholder="Embed Description" required class="border border-gray-300 p-2 rounded w-full mb-4"></textarea>
+        <label for="embedColor" class="block mb-2 font-semibold">Pilih Warna Embed:</label>
+        <input type="color" id="embedColor" value="#00FF00" class="border border-gray-300 rounded mb-4">
+        <input type="text" id="embedImage" placeholder="Image URL (optional)" class="border border-gray-300 p-2 rounded w-full mb-4">
+        <input type="text" id="embedFooter" placeholder="Footer Text (optional)" class="border border-gray-300 p-2 rounded w-full mb-4">
+        <input type="text" id="embedThumbnail" placeholder="Thumbnail URL (optional)" class="border border-gray-300 p-2 rounded w-full mb-4">
+        <button type="submit" class="bg-blue-500 text-white font-bold py-2 rounded w-full hover:bg-blue-600">Kirim Pesan</button>
+    </form>
+
+    <script>
+        document.getElementById('messageForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const guildId = document.getElementById('guildId').value;
+            const channelId = document.getElementById('channelId').value;
+            const embedTitle = document.getElementById('embedTitle').value;
+            const embedDescription = document.getElementById('embedDescription').value;
+            const embedColor = document.getElementById('embedColor').value;
+            const embedImage = document.getElementById('embedImage').value;
+            const embedFooter = document.getElementById('embedFooter').value;
+            const embedThumbnail = document.getElementById('embedThumbnail').value;
+
+            // Membuat objek embed
+            const embed = {
+                title: embedTitle,
+                description: embedDescription,
+                color: parseInt(embedColor.slice(1), 16), // Mengubah warna hex ke format decimal
+                image: { url: embedImage }, // Menambahkan gambar
+                footer: { text: embedFooter }, // Menambahkan footer
+                thumbnail: { url: embedThumbnail } // Menambahkan thumbnail
+            };
+
+            try {
+                const response = await fetch('/send-message', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ guildId, channelId, embed }),
+                });
+
+                const result = await response.text();
+                alert(result);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        });
+    </script>
+</body>
+</html>
