@@ -1,6 +1,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const express = require('express');
+const cors = require('cors'); // Import CORS
 const { Client, GatewayIntentBits, Collection, ActivityType, EmbedBuilder, TextChannel } = require('discord.js');
 
 // Inisialisasi client Discord
@@ -72,6 +73,7 @@ client.on('messageCreate', async message => {
 
 // Setup Express untuk mengirim pesan ke Discord dari website
 const app = express();
+app.use(cors()); // Mengaktifkan CORS
 app.use(express.json()); // Middleware untuk parsing JSON
 
 // Menyajikan file statis dari folder 'public'
@@ -95,7 +97,9 @@ app.post('/send-message', async (req, res) => {
     if (!guild) return res.status(404).send('Guild not found');
 
     const channel = guild.channels.cache.get(channelId);
-    if (!channel || !(channel instanceof TextChannel)) return res.status(404).send('Channel not found or not a text channel');
+    if (!channel || !(channel instanceof TextChannel)) {
+        return res.status(404).send('Channel not found or not a text channel');
+    }
 
     try {
         // Validasi embed
@@ -107,7 +111,7 @@ app.post('/send-message', async (req, res) => {
         const embedMessage = new EmbedBuilder()
             .setTitle(embed.title)
             .setDescription(embed.description)
-            .setColor(embed.color); // Memastikan warna ada dalam embed
+            .setColor(embed.color || '#000000'); // Memastikan warna ada dalam embed, default hitam
 
         // Mengirim pesan dengan embed
         await channel.send({ embeds: [embedMessage] });
