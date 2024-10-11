@@ -59,11 +59,3 @@ Berikut adalah package yang digunakan dalam proyek ini:
   }
 }
 ```
-
-## Kontribusi
-
-Jika Anda ingin berkontribusi pada proyek ini, silakan fork repositori ini dan kirim pull request.
-
-## Lisensi
-
-Proyek ini dilisensikan di bawah MIT License - lihat file [LICENSE](LICENSE) untuk detail lebih lanjut.
