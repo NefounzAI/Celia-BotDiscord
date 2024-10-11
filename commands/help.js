@@ -12,7 +12,8 @@ module.exports = {
                 { name: '!help', value: 'Menampilkan daftar perintah yang tersedia.' },
                 { name: '!istri', value: 'Menampilkan gambar istrimu.' },
                 { name: '!avatar', value: 'Menampilkan avatarmu.' },
-                { name: '!ping', value: 'Menampilkan latensi bot.' }
+                { name: '!ping', value: 'Menampilkan latensi bot.' },
+                { name: '!nsfw', value: 'Menampilkan konten nsfw.' },
             )
             .setFooter({ text: 'Gunakan perintah dengan prefix "!".' });
 
