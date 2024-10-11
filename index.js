@@ -1,7 +1,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const express = require('express');
-const cors = require('cors'); // Import CORS
+const cors = require('cors');
 const { Client, GatewayIntentBits, Collection, ActivityType, EmbedBuilder, TextChannel } = require('discord.js');
 
 // Inisialisasi client Discord
@@ -29,7 +29,6 @@ for (const file of commandFiles) {
 // Event saat bot siap
 client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    // Mengatur status aktivitas bot
     client.user.setActivity('Melihat Dia Selingkuh', { type: ActivityType.Playing });
 });
 
@@ -51,15 +50,13 @@ client.on('guildMemberRemove', member => {
 
 // Event untuk menangani pesan
 client.on('messageCreate', async message => {
-    const prefix = '!'; // Prefix untuk perintah
+    const prefix = '!';
 
-    // Cek apakah pesan dimulai dengan prefix dan bukan dari bot
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
 
-    // Cek apakah command ada di koleksi
     if (!client.commands.has(commandName)) return;
 
     const command = client.commands.get(commandName);
@@ -73,10 +70,8 @@ client.on('messageCreate', async message => {
 
 // Setup Express untuk mengirim pesan ke Discord dari website
 const app = express();
-app.use(cors()); // Mengaktifkan CORS
-app.use(express.json()); // Middleware untuk parsing JSON
-
-// Menyajikan file statis dari folder 'public'
+app.use(cors());
+app.use(express.json());
 app.use(express.static('public')); // Pastikan folder 'public' ada
 
 // Rute dasar untuk menyajikan halaman HTML
@@ -88,7 +83,6 @@ app.get('/', (req, res) => {
 app.post('/send-message', async (req, res) => {
     const { guildId, channelId, embed } = req.body;
 
-    // Validasi input
     if (!guildId || !channelId || !embed) {
         return res.status(400).send('Guild ID, Channel ID, and Embed are required');
     }
@@ -102,18 +96,15 @@ app.post('/send-message', async (req, res) => {
     }
 
     try {
-        // Validasi embed
         if (!embed.title || !embed.description) {
             return res.status(400).send('Embed title and description are required');
         }
 
-        // Memastikan semua properti yang ada dalam embed valid
         const embedMessage = new EmbedBuilder()
             .setTitle(embed.title)
             .setDescription(embed.description)
-            .setColor(embed.color || '#000000'); // Memastikan warna ada dalam embed, default hitam
+            .setColor(embed.color || '#000000');
 
-        // Mengirim pesan dengan embed
         await channel.send({ embeds: [embedMessage] });
         res.status(200).send('Message sent successfully');
     } catch (error) {
@@ -124,8 +115,9 @@ app.post('/send-message', async (req, res) => {
 
 // Listen on a port
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || 'localhost'; // Default to localhost
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Server is running on http://${HOST}:${PORT}/`);
 });
 
 // Login ke Discord
