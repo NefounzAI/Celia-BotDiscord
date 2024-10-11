@@ -1,6 +1,6 @@
 require('dotenv').config();
 const fs = require('fs');
-const { Client, GatewayIntentBits, Collection, ActivityType, EmbedBuilder } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, ActivityType } = require('discord.js');
 
 // Inisialisasi client Discord
 const client = new Client({
@@ -9,8 +9,8 @@ const client = new Client({
         GatewayIntentBits.GuildMessages,
         GatewayIntentBits.MessageContent,
         GatewayIntentBits.GuildVoiceStates,
-        GatewayIntentBits.GuildMembers
-    ]
+        GatewayIntentBits.GuildMembers,
+    ],
 });
 
 // Inisialisasi collection untuk commands
@@ -34,40 +34,18 @@ client.once('ready', () => {
 
 // Event untuk menangani anggota baru
 client.on('guildMemberAdd', member => {
-    const channel = member.guild.channels.cache.find(channel => channel.name === 'welcome-masbro');
-    if (!channel) return;
-
-    const welcomeEmbed = new EmbedBuilder()
-        .setColor('#00FF00') 
-        .setTitle('🎉 Selamat Datang! 🎉')
-        .setDescription(`Selamat datang di server, ${member}!`)
-        .addFields(
-            { name: '👋 Perkenalan', value: 'Kami harap kamu merasa betah di sini! Jangan ragu untuk memperkenalkan diri.' },
-            { name: '📜 Aturan', value: 'Aturanya kamu sopan kami segan' },
-            { name: '💬 Chat', value: 'Selamat bergabung, mari main bersama' }
-        )
-        .setTimestamp()
-        .setFooter({ text: 'Kami senang kamu ada di sini!' });
-
-    channel.send({ embeds: [welcomeEmbed] });
+    const command = client.commands.get('welcome');
+    if (command) {
+        command.execute(member);
+    }
 });
 
 // Event untuk menangani anggota yang keluar
 client.on('guildMemberRemove', member => {
-    const channel = member.guild.channels.cache.find(channel => channel.name === 'welcome-masbro');
-    if (!channel) return;
-
-    const goodbyeEmbed = new EmbedBuilder()
-        .setColor('#FF0000') // Warna merah
-        .setTitle('👋 Selamat Tinggal!')
-        .setDescription(`Selamat tinggal, ${member}!`)
-        .addFields(
-            { name: '😢 Kami akan merindukanmu!', value: 'Kami harap kamu kembali lagi!' }
-        )
-        .setTimestamp()
-        .setFooter({ text: 'Sampai jumpa lagi!' });
-
-    channel.send({ embeds: [goodbyeEmbed] });
+    const command = client.commands.get('goodbye');
+    if (command) {
+        command.execute(member);
+    }
 });
 
 // Event untuk menangani pesan
