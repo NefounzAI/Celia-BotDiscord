@@ -1,6 +1,12 @@
 # Celia BotDiscord
 
+![Celia BotDiscord](https://i.pinimg.com/736x/47/f4/64/47f464522a1a1a9a534b7936171a8796.jpg)
+
 Celia BotDiscord adalah bot Discord yang dirancang untuk memberikan berbagai fitur menarik kepada pengguna. Gunakan perintah `!help` untuk melihat daftar fitur yang tersedia.
+
+## Screenshot
+
+![Bot Screenshot](https://cdn.discordapp.com/attachments/1294204975840366632/1294210676130185298/image.png?ex=670a2f1e&is=6708dd9e&hm=c51865030a5cb079ec0d2ea739a641b96694d90e215f8cd8aa241c287f306e84&)
 
 ## Cara Install Bot
 
@@ -59,3 +65,4 @@ Berikut adalah package yang digunakan dalam proyek ini:
   }
 }
 ```
+
