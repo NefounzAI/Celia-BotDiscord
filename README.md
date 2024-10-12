@@ -38,16 +38,21 @@ Celia BotDiscord adalah bot Discord yang dirancang untuk memberikan berbagai fit
 
    ```plaintext
    DISCORD_TOKEN=your_discord_bot_token
+   HOST=localhost
+   PORT=yourport
    ```
 
    Gantilah `your_discord_bot_token` dengan token bot Discord Anda.
+   Gantilah `yourport` dengan port anda mau.
 
-5. **Jalankan Bot:**
+6. **Jalankan Bot:**
 
    Anda dapat menjalankan bot dengan perintah berikut:
 
    ```bash
    node index.js
+   or
+   node .
    ```
 
    Pastikan Anda mengganti `index.js` dengan nama file yang sesuai jika berbeda.
@@ -60,9 +65,12 @@ Berikut adalah package yang digunakan dalam proyek ini:
 {
   "dependencies": {
     "axios": "^1.7.7",
+    "cors": "^2.8.5",
     "discord.js": "^14.16.3",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "express": "^4.17.1"
   }
 }
+
 ```
 
