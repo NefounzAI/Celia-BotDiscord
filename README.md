@@ -51,6 +51,8 @@ Celia BotDiscord adalah bot Discord yang dirancang untuk memberikan berbagai fit
 
    ```bash
    node index.js
+   or
+   node .
    ```
 
    Pastikan Anda mengganti `index.js` dengan nama file yang sesuai jika berbeda.
