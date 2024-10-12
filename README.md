@@ -65,9 +65,12 @@ Berikut adalah package yang digunakan dalam proyek ini:
 {
   "dependencies": {
     "axios": "^1.7.7",
+    "cors": "^2.8.5",
     "discord.js": "^14.16.3",
-    "dotenv": "^16.4.5"
+    "dotenv": "^16.4.5",
+    "express": "^4.17.1"
   }
 }
+
 ```
 
