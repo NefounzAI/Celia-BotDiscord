@@ -38,11 +38,14 @@ Celia BotDiscord adalah bot Discord yang dirancang untuk memberikan berbagai fit
 
    ```plaintext
    DISCORD_TOKEN=your_discord_bot_token
+   HOST=localhost
+   PORT=yourport
    ```
 
    Gantilah `your_discord_bot_token` dengan token bot Discord Anda.
+   Gantilah `yourport` dengan port anda mau.
 
-5. **Jalankan Bot:**
+6. **Jalankan Bot:**
 
    Anda dapat menjalankan bot dengan perintah berikut:
 
