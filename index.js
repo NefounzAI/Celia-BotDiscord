@@ -36,7 +36,11 @@ client.once('ready', () => {
 client.on('guildMemberAdd', member => {
     const command = client.commands.get('welcome');
     if (command) {
-        command.execute(member);
+        try {
+            command.execute(member);
+        } catch (error) {
+            console.error(`Error executing 'welcome' command:`, error);
+        }
     }
 });
 
@@ -44,7 +48,11 @@ client.on('guildMemberAdd', member => {
 client.on('guildMemberRemove', member => {
     const command = client.commands.get('goodbye');
     if (command) {
-        command.execute(member);
+        try {
+            command.execute(member);
+        } catch (error) {
+            console.error(`Error executing 'goodbye' command:`, error);
+        }
     }
 });
 
@@ -63,7 +71,7 @@ client.on('messageCreate', async message => {
     try {
         await command.execute(message, args, client);
     } catch (error) {
-        console.error(error);
+        console.error(`Error executing command '${commandName}':`, error);
         message.reply('Terjadi kesalahan saat mencoba mengeksekusi perintah itu!');
     }
 });
@@ -83,8 +91,9 @@ app.get('/', (req, res) => {
 app.post('/send-message', async (req, res) => {
     const { guildId, channelId, embed } = req.body;
 
-    if (!guildId || !channelId || !embed) {
-        return res.status(400).send('Guild ID, Channel ID, and Embed are required');
+    // Validasi input
+    if (!guildId || !channelId || !embed || !embed.title || !embed.description) {
+        return res.status(400).send('Guild ID, Channel ID, and valid Embed are required');
     }
 
     const guild = client.guilds.cache.get(guildId);
@@ -96,10 +105,6 @@ app.post('/send-message', async (req, res) => {
     }
 
     try {
-        if (!embed.title || !embed.description) {
-            return res.status(400).send('Embed title and description are required');
-        }
-
         // Membuat embed message
         const embedMessage = new EmbedBuilder()
             .setTitle(embed.title)
@@ -135,6 +140,11 @@ app.listen(PORT, () => {
 });
 
 // Login ke Discord
+if (!process.env.DISCORD_TOKEN) {
+    console.error('DISCORD_TOKEN is not set in the environment variables!');
+    process.exit(1);
+}
+
 client.login(process.env.DISCORD_TOKEN).catch(err => {
-    console.error('Failed to login:', err);
+    console.error('Failed to login to Discord:', err);
 });
