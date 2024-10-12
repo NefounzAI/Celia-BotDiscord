@@ -34,27 +34,44 @@ client.once('ready', () => {
 
 // Event untuk menangani anggota baru
 client.on('guildMemberAdd', member => {
-    const command = client.commands.get('welcome');
-    if (command) {
+    const welcomeCommand = client.commands.get('welcome');
+    const autoroleCommand = client.commands.get('autorole');
+
+    // Eksekusi command welcome
+    if (welcomeCommand) {
         try {
-            command.execute(member);
+            welcomeCommand.execute(member);
         } catch (error) {
             console.error(`Error executing 'welcome' command:`, error);
         }
     }
+
+    // Eksekusi command autorole
+    if (autoroleCommand) {
+        try {
+            autoroleCommand.execute(member);
+        } catch (error) {
+            console.error(`Error executing 'autorole' command:`, error);
+        }
+    }
 });
+
 
 // Event untuk menangani anggota yang keluar
 client.on('guildMemberRemove', member => {
+    console.log(`Member left: ${member.user.tag}`); // Tambahkan ini untuk cek apakah event dipicu
+    
     const command = client.commands.get('goodbye');
     if (command) {
         try {
+            console.log(`Sending goodbye to ${member.user.tag}`); // Cek apakah command goodbye berjalan
             command.execute(member);
         } catch (error) {
             console.error(`Error executing 'goodbye' command:`, error);
         }
     }
 });
+
 
 // Event untuk menangani pesan
 client.on('messageCreate', async message => {

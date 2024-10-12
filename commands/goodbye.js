@@ -2,20 +2,21 @@ const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     name: 'goodbye',
-    description: 'Menyambut anggota baru di server.',
-    execute(message) {
-        // Cek apakah message tersebut dikirim di guild
-        if (!message.guild) return;
-
-        const member = message.mentions.members.first(); // Mengambil user yang di-mention
-        if (!member) {
-            return message.reply('Tolong mention anggota yang ingin disambut! Contoh: !welcome @username');
+    description: 'Menyambut anggota yang keluar dari server.',
+    execute(member) {
+        // Cek apakah member dan guild ada
+        if (!member || !member.guild) {
+            console.error('Member or guild is undefined.');
+            return;
         }
 
-        const channel = message.guild.channels.cache.find(channel => channel.name === 'welcome-masbro');
-        if (!channel) return;
+        const channel = member.guild.channels.cache.find(channel => channel.name === 'welcome-masbro');
+        if (!channel) {
+            console.error('Channel welcome-masbro tidak ditemukan.');
+            return;
+        }
 
-        // Membuat embed untuk selamat datang
+        // Membuat embed untuk selamat tinggal
         const goodbyeEmbed = new EmbedBuilder()
             .setColor('#FF4500') 
             .setTitle(`${member.user.username} 👋 Selamat Tinggal! 👋`) // Nama pengguna dengan pesan
@@ -26,6 +27,10 @@ module.exports = {
             .setFooter({ text: 'Goodbye', iconURL: member.user.displayAvatarURL() }); // Tambahkan profil pengguna di footer
 
         // Mengirim embed ke channel
-        channel.send({ embeds: [goodbyeEmbed] });
+        try {
+            channel.send({ embeds: [goodbyeEmbed] });
+        } catch (error) {
+            console.error('Gagal mengirim pesan goodbye:', error);
+        }
     },
 };
