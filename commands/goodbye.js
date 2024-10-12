@@ -10,7 +10,7 @@ module.exports = {
             return;
         }
 
-        const channel = member.guild.channels.cache.find(channel => channel.name === 'welcome-masbro');
+        const channel = member.guild.channels.cache.find(channel => channel.name === 'goodbye-masbro');
         if (!channel) {
             console.error('Channel welcome-masbro tidak ditemukan.');
             return;
