@@ -6,7 +6,7 @@ Celia BotDiscord adalah bot Discord yang dirancang untuk memberikan berbagai fit
 
 ## Screenshot
 
-![Bot Screenshot](https://cdn.discordapp.com/attachments/1294204975840366632/1294210676130185298/image.png?ex=670a2f1e&is=6708dd9e&hm=c51865030a5cb079ec0d2ea739a641b96694d90e215f8cd8aa241c287f306e84&)
+![Bot Screenshot](https://cdn.discordapp.com/attachments/1309404126421192704/1309404144590786560/image.png?ex=67417523&is=674023a3&hm=6c910d4b412962d7b32a7a88711838f6367f8a5af1491038fa683f0f362c1bf3&)
 
 ## Cara Install Bot
 
