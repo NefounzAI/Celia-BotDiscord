@@ -2,18 +2,29 @@ const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
     name: 'avatar',
-    description: 'Displays the avatar of the mentioned user or the command sender.',
-    execute(message, args) {
-        const user = message.mentions.users.first() || message.author;
+    description: 'Menampilkan avatar pengguna yang disebutkan atau pengirim perintah.',
+    async execute(message, args) {
+        let user;
+        if (args.length === 1 && !isNaN(args[0])) {
+            try {
+                user = await message.client.users.fetch(args[0]); 
+            } catch (error) {
+                return message.channel.send('❌ Pengguna tidak ditemukan!');
+            }
+        } else {
+            user = message.mentions.users.first() || message.author;
+        }
+
         const avatarURL = user.displayAvatarURL({ dynamic: true, size: 1024 });
 
         const avatarEmbed = new EmbedBuilder()
-            .setColor('#14e9d6') 
-            .setTitle(`${user.username} Avatar`)
-            .setImage(avatarURL) 
-            .setFooter({ text: `Requested by ${message.author.username}` })
+            .setColor('#14e9d6')
+            .setTitle(`${user.username}'s Avatar`)
+            .setDescription(`Berikut adalah avatar dari **${user.username}**.`)
+            .setImage(avatarURL)
+            .setFooter({ text: `Diminta oleh ${message.author.username}` })
             .setTimestamp();
 
         message.channel.send({ embeds: [avatarEmbed] });
-    }
+    },
 };

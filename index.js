@@ -218,10 +218,23 @@ if (!process.env.DISCORD_TOKEN) {
     process.exit(1);
 }
 
-client.login(process.env.DISCORD_TOKEN)
-    .then(() => {
-        console.log('Bot berhasil login ke Discord');
-    })
-    .catch(err => {
-        console.error('Failed to login to Discord:', err);
-    });
+console.log(`
+    
+    _____     _ _       ____        _   
+   / ____|   | (_)     |  _ \\      | |  
+  | |     ___| |_  __ _| |_) | ___ | |_ 
+  | |    / _ \\ | |/ _\` |  _ < / _ \\| __|
+  | |___|  __/ | | (_| | |_) | (_) | |_ 
+   \\_____\\___|_|_|\\__,_|____/ \\___/ \\__|
+                                        
+                                        
+ 
+     `);
+
+     client.login(process.env.DISCORD_TOKEN)
+     .then(() => {
+         console.log('\x1b[32m%s\x1b[0m', 'Bot berhasil login ke Discord');
+     })
+     .catch(err => {
+         console.error('\x1b[31m%s\x1b[0m', 'Failed to login to Discord:', err);
+     });
