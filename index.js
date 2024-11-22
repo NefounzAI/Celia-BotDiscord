@@ -36,7 +36,7 @@ for (const file of commandFiles) {
 // Event when the bot is ready
 client.once('ready', () => {
     console.log(`Logged in as ${client.user.tag}!`);
-    client.user.setActivity('Melihat Dia Selingkuh', { type: ActivityType.Playing });
+    client.user.setActivity('create by founzz | !help', { type: ActivityType.Listening });
 });
 
 // Event for new members
