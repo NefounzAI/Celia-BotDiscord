@@ -105,7 +105,9 @@ client.on('messageCreate', async message => {
     const args = message.content.slice(prefix.length).trim().split(/ +/);
     const commandName = args.shift().toLowerCase();
 
-    if (!client.commands.has(commandName)) return;
+    if (!client.commands.has(commandName)) {
+        return message.reply('Command tidak tersedia.silahkan ketik ``!help``untuk melihat command yang tersedia');
+    }
 
     const command = client.commands.get(commandName);
     try {
