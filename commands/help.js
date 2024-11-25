@@ -13,7 +13,6 @@ module.exports = {
                 { name: '``!istri``', value: 'Menampilkan gambar istrimu.', inline: true },
                 { name: '``!avatar``', value: 'Menampilkan avatarmu.', inline: true },
                 { name: '``!ping``', value: 'Menampilkan latensi bot.', inline: true },
-                { name: '``!nsfw``', value: 'Menampilkan konten NSFW.', inline: true }
             )
             .setFooter({ text: 'Gunakan perintah dengan prefix "!".', iconURL: 'https://i.pinimg.com/736x/47/f4/64/47f464522a1a1a9a534b7936171a8796.jpg' })
             .setTimestamp()
